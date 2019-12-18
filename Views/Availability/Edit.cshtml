@@ -1,0 +1,8 @@
+﻿@model List<Availability>
+@{
+    ViewData["Title"] = "Availability";
+}
+
+<h1>Edit Availability</h1>
+
+@await Html.PartialAsync("_Form", Model)

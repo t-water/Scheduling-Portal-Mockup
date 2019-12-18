@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SchedulerHMTestViewModel>
+@{
+    ViewData["Title"] = "HMTest";
+}
+
+<h1>HM Test</h1>
+
+@if (Model.Any())
+{
+    foreach(var m in Model)
+    {
+        <p><strong><u>- @m.Shift.Name @m.Shift.Start - @m.Shift.End</u></strong></p>
+        foreach(var user in m.Users)
+        {
+            <p>-@user.FullName</p>
+        }
+    }
+}
+else
+{
+    <p>No Items in Model</p>
+}

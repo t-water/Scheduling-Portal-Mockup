@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Venue>
+@{
+    ViewData["Title"] = "Venues";
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Abbreviation</th>
+                <th scope="col">View Details</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Venue venue in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => venue.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => venue.Abbreviation)
+                </td>
+                <td>
+                    <a asp-controller="Venue" asp-action="Details" asp-route-id="@venue.ID">View Details</a>
+                </td>
+                <td>
+                    <a asp-controller="Venue" asp-action="Edit" asp-route-id="@venue.ID">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Venue" asp-action="Delete" asp-route-id="@venue.ID">Delete</a>
+                </td>
+            </tr>
+             }
+            </tbody>
+    </table>
+
+    <a asp-controller="Venue" asp-action="Create">Add New Venue</a>
+</div>
+

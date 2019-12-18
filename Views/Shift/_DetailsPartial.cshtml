@@ -1,0 +1,37 @@
+﻿@model int;
+@inject IShiftRepository shiftRepository;
+
+@{
+    Shift shift = await shiftRepository.GetShiftWithVenueAsync(Model);
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => shift.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => shift.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => shift.Start)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => shift.Start)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => shift.End)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => shift.End)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => shift.Venue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => shift.Venue.Name)
+        </dd>
+    </dl>
+</div>
+

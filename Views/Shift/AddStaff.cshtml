@@ -1,0 +1,76 @@
+﻿@model List<UserShift>;
+@{
+    ViewData["Title"] = "Add Staff";
+    string dateString = "yyyy-MM-dd'T'H:mm";
+    string start = ViewBag.Shift.Start.ToString(dateString);
+    string end = ViewBag.Shift.End.ToString(dateString);
+    int shiftID = ViewBag.Shift.ID;
+    int count = 0;
+}
+
+<h1>@ViewData["Title"]</h1>
+@await Html.PartialAsync("_DetailsPartial", shiftID)
+<hr />
+
+<form asp-action="addstaff" asp-route-id="@shiftID">
+    @foreach (var role in ViewBag.Roles)
+    {
+        <div class="position-container mt-5">
+            <a href="#" class="add-new-staff-member-link" data-role="@role.Name">Add New: @role.Name</a>
+            @{
+                var usersInPosition = Model.Where(x => x.PositionID == role.Id);
+                foreach (var us in usersInPosition)
+                {
+                    <div class="form-group mb-4 clearfix">
+                        <input type="hidden" value="@count" />
+                        <input disabled value="@us.User.FullName" class="form-control" />
+                        <input disabled type="datetime-local" class="form-control col-12 col-md-6 float-left" value="@us.UserStart.ToString(dateString)" />
+                        <input disabled type="datetime-local" class="form-control col-12 col-md-6 float-left" value="@us.UserEnd.ToString(dateString)" />
+                        <input type="hidden" value="@us.PositionID">
+                        <button class="btn btn-warning edit-entry">Edit Entry</button>
+                    </div>
+                    count += 1;
+                }
+            }
+        </div>
+    }
+    <div class="form-group">
+        <a asp-controller="shift" asp-action="details" asp-route-id="@shiftID" class="btn btn-primary m-1">Back</a>
+        <button class="btn btn-primary ml-0 m-1" type="submit">Submit</button>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var count = @count;
+            
+            $('.add-new-staff-member-link').click(function (e) {
+                $.ajax({
+                    context: this,
+                    url: "/shift/ReturnRoleDropdownPartial?roleName=" + $(this).attr('data-role') + '&count=' + count,
+                    success: function (data) {
+                        $(this).parent().append('<div class="form-group mb-4 clearfix">'
+                            + data
+                            + '<input type ="datetime-local" class="form-control col-12 col-md-6 float-left" name="[' + count + '].UserStart" value="@start" />'
+                            + '<input type = "datetime-local" class= "form-control col-12 col-md-6 float-left" name="[' + count + '].UserEnd" value = "@end" />'
+                            + '<button class="btn btn-danger delete-entry">Delete Entry</button></div> ');
+
+                        count += 1;
+                    }
+                })
+                e.preventDefault();
+            })
+
+            $('form').on('click', '.delete-entry', function (e) {
+                $(this).parent().remove();
+                e.preventDefault();
+            })
+
+            $('.edit-entry').click(function (e) {
+                $(this).parent().remove();
+                e.preventDefault();
+            })
+        })
+    </script>
+}

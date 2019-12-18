@@ -1,0 +1,44 @@
+﻿@model SchedulerIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1 class="text-center">Scheduler</h1>
+<p class="text-center">Find shifts whose start date falls between the given values</p>
+
+<form asp-action="index">
+    <div class="form-group">
+        <label asp-for="Start"></label>
+        <input asp-for="Start" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="End"></label>
+        <input asp-for="End" class="form-control"/>
+        <span asp-validation-for="End" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+@if (Model.Shifts.Any())
+{
+    foreach(var m in Model.Shifts)
+    {
+        <p><strong>- @m.Name: @m.Start  - @m.End</strong></p>
+    }
+
+    <form asp-action="HMTest">
+        <div class="form-group">
+            <p>Click Below to Create A Schedule For These Shifts</p>
+            <button class="btn btn-primary">Click Here</button>
+            @for(int i=0; i<Model.Shifts.Count(); i++)
+            {
+                <input type="hidden" name="[@i].ShiftID" value="@Model.Shifts[i].ID" />
+            }
+
+        </div>
+    </form>
+}
+

@@ -1,0 +1,75 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1>Profile</h1>
+
+<form asp-action="profile" asp-route-id="@Model.ID">
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" disabled class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ID"></label>
+        <input asp-for="ID" disabled class="form-control" />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>
+    <hr class="mb-5" />
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Birthday"></label>
+        <input asp-for="Birthday" class="form-control" />
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WorkStudyAllowance"></label>
+        <input asp-for="WorkStudyAllowance" class="form-control" />
+        <span asp-validation-for="WorkStudyAllowance" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-warning">Update Profile</button>
+    </div>
+</form>
+
+<div class="card">
+    <div class="card-header">
+        Roles for this User
+    </div>
+    <div class="card-body">
+        @if (Model.Roles.Any())
+        {
+            foreach (var role in Model.Roles)
+            {
+                <h5>- @role</h5>
+            }
+        }
+        else
+        {
+            <h5>No Roles Yet For This User</h5>
+        }
+    </div>
+    @if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+    {
+        <div class="card-footer">
+            <a asp-controller="account" asp-action="manageroles" asp-route-id="@Model.ID" class="btn btn-primary text-light">Manage Roles</a>
+        </div>
+    }
+
+</div>
+

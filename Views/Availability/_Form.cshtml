@@ -1,0 +1,69 @@
+﻿@model List<Availability>
+@{
+    ViewData["Title"] = "Availability";
+    string dateString = "h:mm tt";
+}
+
+<form asp-action="@ViewBag.Action" asp-route-id="@ViewBag.UserID">
+    @if (ViewBag.Action == "edit" || ViewBag.Action == "create")
+    {
+        <div class="form-group">
+            <a zasp-action="index" asp-route-id="@ViewBag.UserID">Return To View Availability</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">*</th>
+                    @foreach (DayOfWeek d in Enum.GetValues(typeof(DayOfWeek)))
+                    {
+                        <th scope="col">@d</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    for (int i = 0; i < Model.Count() / 7; i++)
+                    {
+                        <tr>
+                            <th scope="col">@Model[i * 7].Start.ToString(dateString) - @Model[i * 7].End.ToString(dateString)</th>
+                            @for (int j = 0; j < 7; j++)
+                            {
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-control" asp-for="@Model[(i*7) + j].IsSelected" disabled="@ViewBag.Disabled" />
+                                        @{
+                                            if (ViewBag.Action == "edit")
+                                            {
+                                                <input type="hidden" asp-for="@Model[(i*7) + j].AvailabilityID" />
+                                            }
+                                            else if (ViewBag.Action == "create")
+                                            {
+                                                <input type="hidden" asp-for="@Model[(i*7) + j].Start" />
+                                                <input type="hidden" asp-for="@Model[(i*7) + j].End" />
+                                                <input type="hidden" asp-for="@Model[(i*7) + j].Day" />
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (ViewBag.Action == "edit" || ViewBag.Action == "create")
+    {
+        <div class="form-group">
+            <a asp-action="index" asp-route-id="@ViewBag.UserID">Return To View Availability</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    }
+
+</form>

@@ -1,0 +1,36 @@
+﻿@model List<DeleteStaffViewModel>
+@{
+    ViewData["Title"] = "Delete Staff";
+    int shiftID = @ViewBag.Shift.ID;
+}
+
+<h1>Delete Staff</h1>
+@await Html.PartialAsync("_DetailsPartial", shiftID)
+<hr />
+
+@if (Model.Any())
+{
+    <form asp-action="deletestaff" asp-route-id="@ViewBag.Shift.ID">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div class="form-check m-1">
+                <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                    @Model[i].FullName - @Model[i].PositionName
+                </label>
+                <input type="hidden" asp-for="@Model[i].UserShiftID" />
+            </div>
+        }
+        <div class="form-group">
+            <a asp-controller="shift" asp-action="details" asp-route-id="@shiftID" class="btn btn-primary m-1">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+}
+else
+{
+    <p>No Staff Currently On This Shift</p>
+    <a asp-controller="shift" asp-action="details" asp-route-id="@ViewBag.Shift.ID">Return to Shift Details</a>
+}
+

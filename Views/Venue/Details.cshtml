@@ -1,0 +1,13 @@
+﻿@model Venue
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<p><strong>Venue ID: </strong>@Model.ID</p>
+<p><strong>Venue Name: </strong>@Model.Name</p>
+<p><strong>Venue Abbreviation: </strong>@Model.Abbreviation</p>
+<a asp-controller="venue" asp-action="edit" asp-route-id="@Model.ID">Edit</a> | 
+<a asp-controller="venue" asp-action="index">Return to Venue List</a>
+

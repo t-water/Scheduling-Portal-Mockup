@@ -1,0 +1,19 @@
+﻿@model List<HomeViewModel>
+@inject SignInManager<ApplicationUser> signInManager;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (signInManager.IsSignedIn(User))
+{
+    @foreach (var m in Model)
+    {
+        @await Html.PartialAsync("_UserShiftTablePartial", m)
+    }
+}
+else
+{
+    <p class="text-center">Welcome to the Trojan Event Services Staff Portal. Please Log In to View This Site's Information</p>
+}
+
+

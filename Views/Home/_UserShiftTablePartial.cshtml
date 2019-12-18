@@ -1,0 +1,71 @@
+﻿@model HomeViewModel
+@using TEServerTest.Models
+
+<h2 class="text-center">@Model.Label</h2>
+@if (Model.UserShifts.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Shift Name</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Position</th>
+                    @if (Model.ShowShiftSwapButton)
+                    {
+                        <th scope="col">Request Cover</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (UserShift us in Model.UserShifts)
+                {
+                    string dateString = "MM/dd/yyyy h:mm tt";
+                    var start = us.UserStart.ToString(dateString);
+                    var end = us.UserEnd.ToString(dateString);
+                <tr>
+                    <td><a asp-controller="shift" asp-action="details" asp-route-id="@us.Shift.ID">@us.Shift.Name</a></td>
+                    <td>@us.Shift.Venue.Abbreviation</td>
+                    <td>@start</td>
+                    <td>@end</td>
+                    <td>@us.Position.Name</td>
+
+                    <td>
+                        @{
+                            if (us.RequestStatus == ShiftSwapStatus.Available)
+                            {
+                                <form asp-controller="shiftswap" asp-action="toggleCover" asp-route-id="@us.UserShiftID">
+                                    <button type="submit" class="btn btn-primary p-0">Request Cover</button>
+                                </form>
+                            }
+                            else if (us.RequestStatus == ShiftSwapStatus.Pending)
+                            {
+                                <form asp-controller="shiftswap" asp-action="toggleCover" asp-route-id="@us.UserShiftID">
+                                    <button class="btn btn-secondary p-0">Cancel Cover Request</button>
+                                </form>
+                            }
+                            else if (us.RequestStatus == ShiftSwapStatus.Taken)
+                            {
+                                <button class="btn btn-warning p-0">Pending Approval</button>
+                            }
+                            else if (us.RequestStatus == ShiftSwapStatus.Denied)
+                            {
+                                <button class="btn btn-danger p-0">Swap Denied</button>
+                            }
+                        }
+                    </td>
+                 </tr>
+                 }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center">@Model.NoShiftsMessage</p>
+}
+
+
+

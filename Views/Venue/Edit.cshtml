@@ -1,0 +1,66 @@
+﻿@model TEServerTest.Models.Venue
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Venue</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Abbreviation" class="control-label"></label>
+                <input asp-for="Abbreviation" class="form-control" />
+                <span asp-validation-for="Abbreviation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultExecutiveHouseManagers" class="control-label"></label>
+                <input asp-for="DefaultExecutiveHouseManagers" class="form-control" />
+                <span asp-validation-for="DefaultExecutiveHouseManagers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultHouseManagers" class="control-label"></label>
+                <input asp-for="DefaultHouseManagers" class="form-control" />
+                <span asp-validation-for="DefaultHouseManagers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultFloorManagers" class="control-label"></label>
+                <input asp-for="DefaultFloorManagers" class="form-control" />
+                <span asp-validation-for="DefaultFloorManagers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultEventUshers" class="control-label"></label>
+                <input asp-for="DefaultEventUshers" class="form-control" />
+                <span asp-validation-for="DefaultEventUshers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultConcessionsManagers" class="control-label"></label>
+                <input asp-for="DefaultConcessionsManagers" class="form-control" />
+                <span asp-validation-for="DefaultConcessionsManagers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefaultCommunityRoomLiaisons" class="control-label"></label>
+                <input asp-for="DefaultCommunityRoomLiaisons" class="form-control" />
+                <span asp-validation-for="DefaultCommunityRoomLiaisons" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

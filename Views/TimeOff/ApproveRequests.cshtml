@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TimeOff>
+@{
+    ViewData["Title"] = "Approve Requests";
+}
+
+<h1 class="text-center">Approve Requests</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Number of Days</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Approve</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.User.FullName</td>
+                        <td>@m.Start</td>
+                        <td>@m.End</td>
+                        <td>@m.RequestStatus</td>
+                        <td>
+                            <form asp-action="approveRequests" asp-route-id="@m.TimeOffID">
+                                <button class="btn btn-success p-0">Approve</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center">No Pending Requests</p>
+}
+

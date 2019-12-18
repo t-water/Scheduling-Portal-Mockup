@@ -1,0 +1,56 @@
+﻿@model IQueryable<TimeOff>
+@{
+    ViewData["Title"] = "My Time Off Requests";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Number of Days</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var request in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => request.Start)</td>
+                        <td>@Html.DisplayFor(modelitem => request.End)</td>
+                        <td>
+                            @{
+                                string buttonStatus = "";
+                                if (request.RequestStatus == TimeOffStatus.Approved)
+                                {
+                                    buttonStatus = "btn-success";
+                                }
+                                else if (request.RequestStatus == TimeOffStatus.Pending)
+                                {
+                                    buttonStatus = "btn-warning";
+                                }
+                                else if (request.RequestStatus == TimeOffStatus.Denied)
+                                {
+                                    buttonStatus = "btn-danger";
+                                }
+                                <button class="btn @buttonStatus p-0">@Html.DisplayFor(modelitem => request.RequestStatus)</button>
+                            }
+                        </td>
+                        <td><a asp-action="details" asp-route-id="@request.TimeOffID">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center">No Requests Made</p>
+}
+
+<a asp-action="index">Make a New Request</a>

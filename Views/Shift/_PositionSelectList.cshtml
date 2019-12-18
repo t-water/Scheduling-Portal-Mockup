@@ -1,0 +1,10 @@
+﻿@model PositionSelectListViewModel;
+@{ 
+    var usersSelectList = new SelectList(Model.Users, "Id", "FullName");
+}
+
+<input type="hidden" name="Index" value="@Model.Count" />
+<select name = "[@Model.Count].UserID"asp-items="usersSelectList" class="form-control">
+    <option selected>-- @Model.RoleName --</option>
+</select>
+<input type="hidden" name="[@Model.Count].PositionID" value="@Model.PositionID" />

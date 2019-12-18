@@ -1,0 +1,53 @@
+﻿@model PaginatedList<ApplicationUser>
+@{
+    ViewData["Title"] = "Staff";
+}
+
+<h1 class="text-center">Staff</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.FullName</td>
+                        <td><a href="mailto:@m.Email">@m.Email</a></td>
+                        <td><a href="tel:@m.PhoneNumber">@m.PhoneNumber</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    
+    <div class="row justify-content-center">
+        <a asp-action="listusers"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-primary @prevDisabled m-1">
+            Previous
+        </a>
+        <a asp-action="listusers"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-primary @nextDisabled m-1">
+            Next
+        </a>
+    </div>
+}
+else
+{
+    <p class="text-center">No Staff Yet</p>
+}
+

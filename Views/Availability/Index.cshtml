@@ -1,0 +1,16 @@
+﻿@model List<Availability>
+@{
+    ViewData["Title"] = "Availability";
+}
+
+<h1>Availability</h1>
+
+<div class="form-group">
+    <a asp-action="edit" asp-route-id="@ViewBag.UserID" class="btn btn-warning">Edit</a>
+</div>
+
+@await Html.PartialAsync("_Form", Model)
+
+<div class="form-group">
+    <a asp-action="edit" asp-route-id="@ViewBag.UserID" class="btn btn-warning">Edit</a>
+</div>

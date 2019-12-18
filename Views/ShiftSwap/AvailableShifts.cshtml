@@ -1,0 +1,56 @@
+﻿@model IQueryable<UserShift>
+@{
+    ViewData["Title"] = "Available Shifts";
+    string dateString = "MM/dd/yyyy h:mm tt";
+}
+
+<h1>Available Shifts</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Shift</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Take</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    string start = m.UserStart.ToString(dateString);
+                    string end = m.UserEnd.ToString(dateString);
+
+                    <tr>
+                        <td>@Html.DisplayFor(item => m.User.FullName)</td>
+                        <td>
+                            <a asp-controller="shift" asp-action="details" asp-route-id="@m.Shift.ID">
+                                @Html.DisplayFor(item => m.Shift.Name)
+                            </a>
+                        </td>
+                        <td>@Html.DisplayFor(item => start)</td>
+                        <td>@Html.DisplayFor(item => end)</td>
+                        <td>@Html.DisplayFor(item => m.Shift.Venue.Abbreviation)</td>
+                        <td>@Html.DisplayFor(item => m.Position.Name)</td>
+                        <td>
+                            <form asp-action="takeShift" asp-route-id="@m.UserShiftID">
+                                <button class="btn btn-warning p-0">Take Shift</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>No Shifts Currently Available For Your Position</p>
+}

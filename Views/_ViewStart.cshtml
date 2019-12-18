@@ -1,0 +1,7 @@
+﻿@{
+    Layout = "_Layout";
+
+    @inject UserManager<ApplicationUser> userManager;
+
+    ViewBag.CurrentUserID = userManager.GetUserId(User);
+}

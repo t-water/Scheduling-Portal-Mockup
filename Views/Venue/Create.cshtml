@@ -1,0 +1,24 @@
+﻿@model Venue
+@{
+    ViewData["Title"] = "Create Venue";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Venue" asp-action="Create" method="post">
+    <div class="form-row mb-3">
+        <label asp-for="Name" class="control-label">Name: </label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>              
+    <div class="form-row mb-3">
+        <label asp-for="Abbreviation">Abbreviation: </label>
+        <input asp-for="Abbreviation" class="form-control" />
+        <span asp-validation-for="Abbreviation" class="text-danger"></span>
+    </div>
+    <div class="form-row mb-5">
+        <button class="btn btn-primary" type="submit">Add Venue</button>
+    </div>
+</form>
+
+<a asp-controller="venue" asp-action="index">Return to Venue List</a>

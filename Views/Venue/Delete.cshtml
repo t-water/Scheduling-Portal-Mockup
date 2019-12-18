@@ -1,0 +1,17 @@
+﻿@model Venue
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Confirm Delete</h1>
+<p><strong>Venue ID: </strong>@Model.ID</p>
+<p><strong>Venue Name: </strong>@Model.Name</p>
+<p><strong>Venue Abbreviation: </strong>@Model.Abbreviation</p>
+
+<form asp-controller="venue" asp-action="delete" asp-route-id="@Model.ID" class="mb-5">
+    <input type="hidden" asp-for="ID" />
+    <button class="btn btn-danger" type="submit">Confirm Delete</button>
+</form>
+
+<a asp-controller="venue" asp-action="index">Return to Venue List</a>
+

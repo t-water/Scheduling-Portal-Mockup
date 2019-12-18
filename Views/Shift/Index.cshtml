@@ -1,0 +1,47 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model IEnumerable<Shift>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Schedule</h1>
+
+<p>@ViewBag.Hours</p>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Starts</th>
+                <th scope="col">Ends</th>
+                <th scope="col">Venue</th>
+                @if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+                {
+                    <th scope="col">Edit Staff</th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Shift shift in Model)
+            {
+                string start = shift.Start.ToString("MM/dd/yyyy h:mm tt");
+                string end = shift.End.ToString("MM/dd/yyyy h:mm tt");
+                <tr>
+                    <td><a asp-controller="shift" asp-action="details" asp-route-id="@shift.ID">@Html.DisplayFor(item => shift.Name)</a></td>
+                    <td>@Html.DisplayFor(item => start)</td>
+                    <td>@Html.DisplayFor(item => end)</td>
+                    <td>@Html.DisplayFor(item => shift.Venue.Abbreviation)</td>
+                    @if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+                    {
+                        <td><a asp-controller="shift" asp-action="editstaff" asp-route-id="@shift.ID">Edit Staff</a></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a asp-action="create">Create New Shift</a>
