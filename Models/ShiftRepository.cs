@@ -58,5 +58,21 @@ namespace TEServerTest.Models
         {
             return context.Shifts.Where(x => x.Start.Date >= Start.Date).Where(x => x.Start.Date <= End.Date).OrderBy(x => x.Start);
         }
+
+        public async Task<List<Shift>> GetUnstaffedShifts()
+        {
+            var shiftIds = context.Shifts.OrderBy(s => s.Start).Select(s => s.ID);
+            List<Shift> model = new List<Shift>();
+            foreach(int id in shiftIds)
+            {
+                if(await context.UsersShifts.Where(us => us.ShiftID == id).FirstOrDefaultAsync() == null)
+                {
+                    var shift = await GetShiftWithVenueAsync(id);
+                    model.Add(shift);
+                }
+            }
+
+            return model;
+        }
     }
 }

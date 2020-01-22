@@ -215,5 +215,11 @@ namespace TEServerTest.Controllers
             };
             return PartialView("~/views/Shift/_PositionSelectList.cshtml", model);
         }
+
+        public async Task<IActionResult> Unstaffed()
+        {
+            var model = await shiftRepository.GetUnstaffedShifts();
+            return View(model);
+        }
     }
 }

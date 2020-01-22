@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Shift>
+
+@{
+    ViewData["Title"] = "Unstaffed";
+}
+
+<h1>Unstaffed Shifts</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Starts</th>
+                    <th scope="col">Ends</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var m in Model)
+                {
+                    <tr>
+                        <td>@m.Name</td>
+                        <td>@m.Start</td>
+                        <td>@m.End</td>
+                        <td>@m.Venue.Name</td>
+                        <td><a asp-action="addstaff" asp-route-id="@m.ID">Add Staff</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>All shifts currently have been staffed</p>
+}
+
+<div>
+    <a asp-action="Index">View Schedule</a>
+</div>
+
