@@ -19,11 +19,15 @@
     <dl class="row">
         @foreach (var staff in Model.UserShifts)
         {
-            <dt class="col-sm-2">
+            string timeSpan = staff.UserStart.ToString("h:mm tt") + " - " + staff.UserEnd.ToString("h:mm tt"); 
+            <dt class="col-sm-4">
                 @Html.DisplayFor(model => staff.Position.Name)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-4">
                 @Html.DisplayFor(model => staff.User.FullName)
+            </dd>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => timeSpan)
             </dd>
         }
     </dl>

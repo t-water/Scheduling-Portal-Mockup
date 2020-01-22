@@ -42,4 +42,8 @@
     </table>
 </div>
 
-<a asp-action="create">Create New Shift</a>
+@if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+{
+    <a asp-action="create">Create New Shift</a>
+}
+

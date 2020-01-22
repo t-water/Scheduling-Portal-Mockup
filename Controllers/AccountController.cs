@@ -36,7 +36,7 @@ namespace TEServerTest.Controllers
             return View();
         }
 
-        [HttpPost]
+/*        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -65,7 +65,7 @@ namespace TEServerTest.Controllers
                 }
             }
             return View(model);
-        }
+        }*/
 
         [HttpGet]
         [AllowAnonymous]
