@@ -71,12 +71,11 @@ namespace TEServerTest.Controllers
                 RoleName = role.Name
             };
 
-            foreach(var user in userManager.Users)
+            var usersInRole = await userManager.GetUsersInRoleAsync(model.RoleName);
+
+            foreach (var user in usersInRole)
             {
-                if(await userManager.IsInRoleAsync(user, role.Name))
-                {
-                    model.Users.Add(user.UserName);
-                }
+                model.Users.Add(user.UserName);
             }
 
             return View(model);
@@ -125,7 +124,9 @@ namespace TEServerTest.Controllers
             ViewBag.RoleName = role.Name;
             var model = new List<UserRoleViewModel>();
 
-            foreach(var user in userManager.Users)
+            var usersInRole = await userManager.GetUsersInRoleAsync(role.Name);
+
+            foreach (var user in userManager.Users)
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
@@ -133,7 +134,7 @@ namespace TEServerTest.Controllers
                     UserName = user.UserName
                 };
 
-                if(await userManager.IsInRoleAsync(user, role.Name))
+                if(usersInRole.Contains(user))
                 {
                     userRoleViewModel.IsSelected = true;
                 }
@@ -159,17 +160,19 @@ namespace TEServerTest.Controllers
                 return NotFound();
             }
 
-            for(int i=0; i<model.Count; i++)
+            var usersInRole = await userManager.GetUsersInRoleAsync(role.Name);
+
+            for (int i=0; i<model.Count; i++)
             {
                 var user = await userManager.FindByIdAsync(model[i].UserID);
 
                 IdentityResult result = null;
 
-                if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
+                if (model[i].IsSelected && !usersInRole.Contains(user))
                 {
                     result = await userManager.AddToRoleAsync(user, role.Name);
                 }
-                else if (!model[i].IsSelected && (await userManager.IsInRoleAsync(user, role.Name)))
+                else if (!model[i].IsSelected && usersInRole.Contains(user))
                 {
                     result = await userManager.RemoveFromRoleAsync(user, role.Name);
                 }

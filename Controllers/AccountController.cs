@@ -43,8 +43,9 @@ namespace TEServerTest.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { 
-                    UserName = model.Email, 
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
                     Email = model.Email,
                     Birthday = model.Birthday,
                     FirstName = model.FirstName,
@@ -58,7 +59,7 @@ namespace TEServerTest.Controllers
                     return RedirectToAction("index", "home");
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }

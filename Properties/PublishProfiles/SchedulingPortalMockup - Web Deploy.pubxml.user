@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAzUhkKPrSok2RMEsMzXikwAAAAAACAAAAAAAQZgAAAAEAACAAAAD0rHPMPUwfVJuBMmHgt4d4KenJeFcp5wfgXcgK6Uoy0gAAAAAOgAAAAAIAACAAAABL6rT4xMfQHPrcF/6vI/IrM7PHHSs6VSa4GMaYkzYwtoAAAAAo5acB6QlY5Zo8Cx0i4z7bKQK1CeI1Yytyp2Tot2EKhRkzejeYGtGq94JWvMgL7o5ZBgWaZrdTvRiQkhHnhnDCNkOYf0CfrOLM72fZPd9m8ZaFi0FcSXYKVIFwQTcF2KVkxjtpmdNiM22hzdsJ4eL0urFJpZGWylabKeCmqz3VY0AAAAB+LK2VCOofL8P7HsM0Rm570ngItoU+tw6lZUXeNY37xPTWCfZ0QiJRL4bST6PZAoMRAOyE6SPCKHPyvUJWbRPT</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="TEServerContext">
+      <Value>Data Source=tcp:scheduling-portal-mockup-dbserver.database.windows.net,1433%3bInitial Catalog=Scheduling-Portal-Mockup-Db%3bUser Id=Scheduling-Portal-Mockup-Admin%40scheduling-portal-mockup-dbserver%3bPassword=E&lt;_p8cme9aQ`_#UQoNNq</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="TEServerTest.Data.TEServerContext">
+      <Value>Data Source=tcp:scheduling-portal-mockup-dbserver.database.windows.net,1433%3bInitial Catalog=Scheduling-Portal-Mockup-Db%3bUser Id=Scheduling-Portal-Mockup-Admin%40scheduling-portal-mockup-dbserver%3bPassword=E&lt;_p8cme9aQ`_#UQoNNq</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -9,9 +9,10 @@ namespace TEServerTest.Models
     {
         IOrderedQueryable<Venue> GetVenuesDropdownQuery();
         IEnumerable<Shift> GetShiftsAsync();
-        Task<Shift> GetShiftAsync(int id);
-        Task<Shift> GetShiftWithVenueAsync(int id);
+        Task<Shift> GetShiftAsync(int? id);
+        Task<Shift> GetShiftWithVenueAsync(int? id);
         Task Create(Shift shift);
+        Task<Shift> Update(Shift shift);
         IEnumerable<Shift> GetShiftsInDateRange(DateTime Start, DateTime End);
     }
 }

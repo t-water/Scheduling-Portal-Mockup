@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="SchedulingPortalMockup" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Tyler\\source\\repos\\TEServerTest\\obj\\Release\\netcoreapp3\.0\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="TEServerTest.Data.TEServerContext" description="" value="Data Source=tcp:scheduling-portal-mockup-dbserver.database.windows.net,1433;Initial Catalog=Scheduling-Portal-Mockup-Db;User Id=Scheduling-Portal-Mockup-Admin@scheduling-portal-mockup-dbserver;Password=E&lt;_p8cme9aQ`_#UQoNNq" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Tyler\\source\\repos\\TEServerTest\\obj\\Release\\netcoreapp3\.0\\PubTmp\\EFSQLScripts\\TEServerTest\.Data\.TEServerContext\.sql$" />
+  </parameter>
+</parameters>

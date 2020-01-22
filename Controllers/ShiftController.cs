@@ -29,7 +29,6 @@ namespace TEServerTest.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Hours = userShiftRepository.GetHoursScheduledInDateRange("a71b9f88-541e-4f9c-8eaf-4fe0de359c98", new DateTime(2019, 12, 31), new DateTime(2019, 12, 31));
             var shifts = shiftRepository.GetShiftsAsync();
             return View(shifts);
         }
@@ -52,6 +51,38 @@ namespace TEServerTest.Controllers
             }
             PopulateVenuesDropDownList(shift.VenueID);
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await shiftRepository.GetShiftWithVenueAsync(id);
+
+            if(model == null)
+            {
+                return NotFound();
+            }
+
+            PopulateVenuesDropDownList(model.VenueID);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Shift shift)
+        {
+            if (ModelState.IsValid)
+            {
+                await shiftRepository.Update(shift);
+                return RedirectToAction("index");
+            }
+
+            return View(shift);
         }
 
         [HttpGet]

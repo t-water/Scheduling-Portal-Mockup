@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace TEServerTest.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IAvailabilityRepository availabilityRepository;
 
-        public SchedulerController(IShiftRepository shiftRepository, 
+        public SchedulerController(IShiftRepository shiftRepository,
                UserManager<ApplicationUser> userManager,
                IAvailabilityRepository availabilityRepository)
         {
@@ -34,7 +34,7 @@ namespace TEServerTest.Controllers
                 Start = Start == DateTime.MinValue ? DateTime.Today : Start,
                 End = Start == DateTime.MinValue ? DateTime.Today : End
             };
-            
+
             return View(model);
         }
 
@@ -84,7 +84,7 @@ namespace TEServerTest.Controllers
         public async Task<IActionResult> HMTest(List<SchedulerIndexViewModel> model)
         {
             var viewModel = new List<SchedulerHMTestViewModel>();
-            var users = await userManager.GetUsersInRoleAsync("House Manager");
+            var users = userManager.Users;
             foreach (var shift in model)
             {
                 var currentShift = await shiftRepository.GetShiftAsync(shift.ShiftID);
@@ -108,7 +108,7 @@ namespace TEServerTest.Controllers
         {
             ViewBag.UserID = userManager.Users.Select(x => new SelectListItem { Text = x.FullName, Value = x.Id }).ToList().OrderBy(x => x.Text);
         }
-        
+
         private bool CheckIfUserIsAvailable(string id, DateTime Start, DateTime End)
         {
             if (Start.Hour >= 0 && Start.Hour < 8)
@@ -119,26 +119,28 @@ namespace TEServerTest.Controllers
                     Start = Start.AddMinutes(-(Start.Minute - 29));
                 }
             }
-            if(Start.Minute > 0 && Start.Minute < 30)
+            if (Start.Minute > 0 && Start.Minute < 30)
             {
                 Start = Start.AddMinutes(-1 * Start.Minute);
-            }else if(Start.Minute > 30 && Start.Minute < 60)
+            }
+            else if (Start.Minute > 30 && Start.Minute < 60)
             {
                 Start = Start.AddMinutes(-(Start.Minute - 30));
             }
-            for(DateTime date = Start; date<End; date = date.AddMinutes(30))
+            for (DateTime date = Start; date < End; date = date.AddMinutes(30))
             {
-                if(!availabilityRepository.CheckIfUserIsAvailable(id, date, date.DayOfWeek)){
+                if (!availabilityRepository.CheckIfUserIsAvailable(id, date, date.DayOfWeek))
+                {
                     return false;
                 }
 
-                if(date.TimeOfDay == DateTime.MinValue.TimeOfDay)
+                if (date.TimeOfDay == DateTime.MinValue.TimeOfDay)
                 {
                     date = date.AddHours(7).AddMinutes(30);
                 }
             }
 
-            if(!availabilityRepository.CheckIfUserIsNotOff(id, Start, End))
+            if (!availabilityRepository.CheckIfUserIsNotOff(id, Start, End))
             {
                 return false;
             }
@@ -151,4 +153,4 @@ namespace TEServerTest.Controllers
 
         }
     }
-}
+}*/

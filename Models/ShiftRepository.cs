@@ -24,13 +24,20 @@ namespace TEServerTest.Models
             await context.SaveChangesAsync();
         }
 
-        public async Task<Shift> GetShiftAsync(int id)
+        public async Task<Shift> Update(Shift shift)
+        {
+            context.Shifts.Update(shift);
+            await context.SaveChangesAsync();
+            return shift;
+        }
+
+        public async Task<Shift> GetShiftAsync(int? id)
         {
             var shift = await context.Shifts.FirstOrDefaultAsync(x => x.ID == id);
             return shift;
         }
 
-        public async Task<Shift> GetShiftWithVenueAsync(int id)
+        public async Task<Shift> GetShiftWithVenueAsync(int? id)
         {
             var shift = await context.Shifts.Include(x => x.Venue).FirstOrDefaultAsync(x => x.ID == id);
             return shift;
