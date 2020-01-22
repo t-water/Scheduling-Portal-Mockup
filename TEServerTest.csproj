@@ -12,6 +12,14 @@
     <Compile Remove="Migrations\20191208001213_AddedTimeOff.Designer.cs" />
     <Compile Remove="Migrations\20191208202020_DeleteThisMigration.cs" />
     <Compile Remove="Migrations\20191208202020_DeleteThisMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200122191428_AddedUserShiftsNavPropToShift.cs" />
+    <Compile Remove="Migrations\20200122191428_AddedUserShiftsNavPropToShift.Designer.cs" />
+    <Compile Remove="Migrations\20200122192208_AddedUserShiftsNavPropToShift.cs" />
+    <Compile Remove="Migrations\20200122192208_AddedUserShiftsNavPropToShift.Designer.cs" />
+    <Compile Remove="Migrations\20200122192957_AddedUserShiftsNavPropToShift.cs" />
+    <Compile Remove="Migrations\20200122192957_AddedUserShiftsNavPropToShift.Designer.cs" />
+    <Compile Remove="Migrations\20200122193736_AddedUserShiftsNavPropToShift.cs" />
+    <Compile Remove="Migrations\20200122193736_AddedUserShiftsNavPropToShift.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

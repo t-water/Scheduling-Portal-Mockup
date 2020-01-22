@@ -9,6 +9,10 @@ namespace TEServerTest.Models
 {
     public class Shift
     {
+/*        public Shift()
+        {
+            UserShifts = new HashSet<UserShift>();
+        }*/
         public int ID { get; set; }
 
         [Required]
@@ -23,5 +27,7 @@ namespace TEServerTest.Models
         public int VenueID { get; set; }
 
         public Venue Venue { get; set; }
+
+        public virtual ICollection<UserShift> UserShifts { get; set; }
     }
 }

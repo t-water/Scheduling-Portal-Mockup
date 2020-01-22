@@ -217,4 +217,16 @@ else
             WriteLiteral("\r\n</div>\r\n\r\n");
         }
         #pragma warning restore 1998
-        [global::Microsoft.AspNetCore.Mvc.Razor.Inter
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<IEnumerable<Shift>> Html { get; private set; }
+    }
+}
+#pragma warning restore 1591

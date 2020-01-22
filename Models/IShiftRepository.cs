@@ -14,6 +14,6 @@ namespace TEServerTest.Models
         Task Create(Shift shift);
         Task<Shift> Update(Shift shift);
         IEnumerable<Shift> GetShiftsInDateRange(DateTime Start, DateTime End);
-        Task<List<Shift>> GetUnstaffedShifts();
+        IEnumerable<Shift> GetUnstaffedShifts();
     }
 }
