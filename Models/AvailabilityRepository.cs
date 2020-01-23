@@ -75,5 +75,44 @@ namespace TEServerTest.Models
 
             return true;
         }
+
+        public bool CanBeScheduled(string id, DateTime Start, DateTime End)
+        {
+            if (Start.Hour >= 0 && Start.Hour < 8)
+            {
+                Start = Start.AddHours(-Start.Hour);
+                if (Start.Minute >= 30 && Start.Minute < 60)
+                {
+                    Start = Start.AddMinutes(-(Start.Minute - 29));
+                }
+            }
+            if (Start.Minute > 0 && Start.Minute < 30)
+            {
+                Start = Start.AddMinutes(-1 * Start.Minute);
+            }
+            else if (Start.Minute > 30 && Start.Minute < 60)
+            {
+                Start = Start.AddMinutes(-(Start.Minute - 30));
+            }
+            for (DateTime date = Start; date < End; date = date.AddMinutes(30))
+            {
+                if (!CheckIfUserIsAvailable(id, date, date.DayOfWeek))
+                {
+                    return false;
+                }
+
+                if (date.TimeOfDay == DateTime.MinValue.TimeOfDay)
+                {
+                    date = date.AddHours(7).AddMinutes(30);
+                }
+            }
+
+            if (!CheckIfUserIsNotOff(id, Start, End))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

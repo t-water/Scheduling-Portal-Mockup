@@ -13,5 +13,6 @@ namespace TEServerTest.Models
         Task Update(Availability availability);
         IEnumerable<Availability> GetAvailabilitiesByUserID(string id);
         Availability GetAvailabilityByAvailabilityID(int id);
+        bool CanBeScheduled(string id, DateTime Start, DateTime End);
     }
 }

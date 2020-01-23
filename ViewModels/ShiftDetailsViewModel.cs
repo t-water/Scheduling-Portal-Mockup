@@ -10,6 +10,5 @@ namespace TEServerTest.ViewModels
     {
         public IQueryable<UserShift> UserShifts { get; set; }
         public Shift Shift { get; set; }
-
     }
 }

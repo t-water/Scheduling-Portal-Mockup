@@ -37,7 +37,9 @@
     </dl>
 </div>
 
-@if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+<p><small class="text-danger">@ViewBag.SchedulingError</small></p>
+
+@if (User.IsInRole("Admin"))
 {
     <a asp-controller="shift" asp-action="addstaff" asp-route-id="@Model.Shift.ID">Add Staff</a> <span>|</span>
     <a asp-controller="shift" asp-action="deletestaff" asp-route-id="@Model.Shift.ID">Delete Staff</a> <span>|</span>

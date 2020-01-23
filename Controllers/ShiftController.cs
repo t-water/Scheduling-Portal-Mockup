@@ -19,13 +19,19 @@ namespace TEServerTest.Controllers
         private readonly IUserShiftRepository userShiftRepository;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IAvailabilityRepository availabilityRepository;
 
-        public ShiftController(IShiftRepository shiftRepository, IUserShiftRepository userShiftRepository, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public ShiftController(IShiftRepository shiftRepository, 
+                               IUserShiftRepository userShiftRepository, 
+                               RoleManager<IdentityRole> roleManager, 
+                               UserManager<ApplicationUser> userManager, 
+                               IAvailabilityRepository availabilityRepository)
         {
             this.shiftRepository = shiftRepository;
             this.userShiftRepository = userShiftRepository;
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.availabilityRepository = availabilityRepository;
         }
 
         public IActionResult Index()
@@ -107,6 +113,11 @@ namespace TEServerTest.Controllers
                 Shift = shift
             };
 
+            if (TempData["SchedulingError"] != null)
+            {
+                ViewBag.SchedulingError = TempData["SchedulingError"].ToString();
+            }
+
             return View(model);
         }
 
@@ -128,7 +139,7 @@ namespace TEServerTest.Controllers
             }
             ViewBag.Shift = shift;
 
-            var roles = roleManager.Roles.Where(x => x.Name != "Web Master");
+            var roles = roleManager.Roles.Where(x => x.Name != "Web Master" && x.Name != "Admin");
             ViewBag.Roles = roles;
 
             return View(model);
@@ -144,9 +155,17 @@ namespace TEServerTest.Controllers
             {
                 return NotFound();
             }
+
             foreach (var m in model){
-                m.ShiftID = shift.ID;
-                await userShiftRepository.Create(m);
+                if(availabilityRepository.CanBeScheduled(m.UserID, m.UserStart, m.UserEnd))
+                {
+                    m.ShiftID = shift.ID;
+                    await userShiftRepository.Create(m);
+                }
+                else
+                {
+                    TempData["SchedulingError"] = "Availability or Time Off Requests violated for 1 or more users";
+                }
             }
 
             return RedirectToAction("details", "shift", new { id = id });
