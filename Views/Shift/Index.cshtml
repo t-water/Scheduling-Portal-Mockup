@@ -14,11 +14,6 @@
                 <th scope="col">Starts</th>
                 <th scope="col">Ends</th>
                 <th scope="col">Venue</th>
-                @if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
-                {
-                    <th scope="col">Edit Staff</th>
-                }
-
             </tr>
         </thead>
         <tbody>
@@ -31,11 +26,6 @@
                     <td>@Html.DisplayFor(item => start)</td>
                     <td>@Html.DisplayFor(item => end)</td>
                     <td>@Html.DisplayFor(item => shift.Venue.Abbreviation)</td>
-                    @if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
-                    {
-                        <td><a asp-controller="shift" asp-action="editstaff" asp-route-id="@shift.ID">Edit Staff</a></td>
-                    }
-
                 </tr>
             }
         </tbody>

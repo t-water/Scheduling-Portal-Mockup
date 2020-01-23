@@ -1,4 +1,5 @@
-﻿@model ShiftDetailsViewModel
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model ShiftDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -9,7 +10,10 @@
 @await Html.PartialAsync("_DetailsPartial", Model.Shift.ID)
 
 <div class="mb-3">
-    <a asp-action="Edit" asp-route-id="@Model.Shift.ID">Edit Details</a> |
+@if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Shift.ID">Edit Details</a> <span>|</span>
+}
     <a asp-action="Index">Back to List</a>
 </div>
 
@@ -19,7 +23,7 @@
     <dl class="row">
         @foreach (var staff in Model.UserShifts)
         {
-            string timeSpan = staff.UserStart.ToString("h:mm tt") + " - " + staff.UserEnd.ToString("h:mm tt"); 
+            string timeSpan = staff.UserStart.ToString("h:mm tt") + " - " + staff.UserEnd.ToString("h:mm tt");
             <dt class="col-sm-4">
                 @Html.DisplayFor(model => staff.Position.Name)
             </dt>
@@ -33,6 +37,10 @@
     </dl>
 </div>
 
-<a asp-controller="shift" asp-action="addstaff" asp-route-id="@Model.Shift.ID">Add Staff</a> |
-<a asp-controller="shift" asp-action="deletestaff" asp-route-id="@Model.Shift.ID">Delete Staff</a> |
+@if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+{
+    <a asp-controller="shift" asp-action="addstaff" asp-route-id="@Model.Shift.ID">Add Staff</a> <span>|</span>
+    <a asp-controller="shift" asp-action="deletestaff" asp-route-id="@Model.Shift.ID">Delete Staff</a> <span>|</span>
+}
+
 <a asp-action="Index">Back to List</a>

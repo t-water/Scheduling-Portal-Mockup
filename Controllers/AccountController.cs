@@ -36,7 +36,7 @@ namespace TEServerTest.Controllers
             return View();
         }
 
-/*        [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -65,7 +65,7 @@ namespace TEServerTest.Controllers
                 }
             }
             return View(model);
-        }*/
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -189,6 +189,7 @@ namespace TEServerTest.Controllers
             }
 
             var roles = roleManager.Roles;
+            var userRoles = await userManager.GetRolesAsync(user);
 
             var model = new List<ManageRolesViewModel>();
 
@@ -200,7 +201,7 @@ namespace TEServerTest.Controllers
                     RoleName = role.Name,
                 };
 
-                if(await userManager.IsInRoleAsync(user, role.Name))
+                if(userRoles.Contains(role.Name))
                 {
                     manageRolesViewModel.IsSelected = true;
                 }
@@ -227,15 +228,17 @@ namespace TEServerTest.Controllers
                 return NotFound();
             }
 
-            for(int i=0; i<model.Count; i++)
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            for (int i=0; i<model.Count; i++)
             {
                 IdentityResult result = null;
 
-                if(model[i].IsSelected && !(await userManager.IsInRoleAsync(user, model[i].RoleName)))
+                if(model[i].IsSelected && !userRoles.Contains(model[i].RoleName))
                 {
                     result = await userManager.AddToRoleAsync(user, model[i].RoleName);
                 }
-                else if(!model[i].IsSelected && await userManager.IsInRoleAsync(user, model[i].RoleName))
+                else if(!model[i].IsSelected && userRoles.Contains(model[i].RoleName))
                 {
                     result = await userManager.RemoveFromRoleAsync(user, model[i].RoleName);
                 }
