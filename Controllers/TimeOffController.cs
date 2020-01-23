@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TEServerTest.Models;
@@ -53,6 +54,7 @@ namespace TEServerTest.Controllers
             return View(timeOffRepository.GetTimeOffRequestsByUserId(userID));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ApproveRequests()
         {
@@ -60,6 +62,7 @@ namespace TEServerTest.Controllers
             return View(requests);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveRequests(int id)
@@ -75,6 +78,7 @@ namespace TEServerTest.Controllers
             return View(requests);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Details(int id)
         {

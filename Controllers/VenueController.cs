@@ -5,9 +5,11 @@ using TEServerTest.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TEServerTest.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class VenueController : Controller
     {
         private readonly IVenueRepository venueRepository;

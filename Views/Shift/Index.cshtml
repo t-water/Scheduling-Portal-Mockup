@@ -1,5 +1,5 @@
-﻿@inject SignInManager<ApplicationUser> signInManager;
-@model IEnumerable<Shift>
+﻿@model IEnumerable<Shift>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -32,7 +32,7 @@
     </table>
 </div>
 
-@if (User.IsInRole("Executive House Manager") || User.IsInRole("Web Master"))
+@if (User.IsInRole("Admin"))
 {
     <a asp-action="create">Create New Shift</a>
 }

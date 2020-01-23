@@ -9,6 +9,7 @@ using TEServerTest.Models;
 using TEServerTest.Data;
 using Microsoft.AspNetCore.Identity;
 using TEServerTest.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TEServerTest.Controllers
 {
@@ -33,6 +34,7 @@ namespace TEServerTest.Controllers
             return View(shifts);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ViewResult Create()
         {
@@ -40,6 +42,7 @@ namespace TEServerTest.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Shift shift)
@@ -53,6 +56,7 @@ namespace TEServerTest.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -72,6 +76,7 @@ namespace TEServerTest.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Shift shift)
@@ -105,6 +110,7 @@ namespace TEServerTest.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> AddStaff(int id)
         {
@@ -128,6 +134,7 @@ namespace TEServerTest.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddStaff(List<UserShift> model, int id)
@@ -146,6 +153,7 @@ namespace TEServerTest.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteStaff(int id)
         {
             var shift = await shiftRepository.GetShiftAsync(id);
@@ -174,6 +182,7 @@ namespace TEServerTest.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteStaff(int id, List<DeleteStaffViewModel> model)
@@ -216,6 +225,7 @@ namespace TEServerTest.Controllers
             return PartialView("~/views/Shift/_PositionSelectList.cshtml", model);
         }
 
+        [Authorize(Roles="Admin")]
         public IActionResult Unstaffed()
         {
             var model = shiftRepository.GetUnstaffedShifts();
