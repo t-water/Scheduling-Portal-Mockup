@@ -34,10 +34,20 @@ namespace TEServerTest.Controllers
             this.availabilityRepository = availabilityRepository;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            var shifts = shiftRepository.GetShiftsAsync();
-            return View(shifts);
+            int pageSize = 10;
+            var shifts = shiftRepository.GetFutureShifts();
+            return View(await PaginatedList<Shift>.CreateAsync(shifts, pageNumber ?? 1, pageSize));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PastShifts(int? pageNumber)
+        {
+            int pageSize = 10;
+            var shifts = shiftRepository.GetPastShifts();
+            return View(await PaginatedList<Shift>.CreateAsync(shifts, pageNumber ?? (shifts.Count() / pageSize) + 1, pageSize));
         }
 
         [Authorize(Roles = "Admin")]

@@ -8,7 +8,9 @@ namespace TEServerTest.Models
     public interface IShiftRepository
     {
         IOrderedQueryable<Venue> GetVenuesDropdownQuery();
-        IEnumerable<Shift> GetShiftsAsync();
+        IQueryable<Shift> GetShiftsAsync();
+        IQueryable<Shift> GetFutureShifts();
+        IQueryable<Shift> GetPastShifts();
         Task<Shift> GetShiftAsync(int? id);
         Task<Shift> GetShiftWithVenueAsync(int? id);
         Task Create(Shift shift);

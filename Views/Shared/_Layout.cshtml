@@ -23,7 +23,12 @@
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Schedule</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item text-dark" asp-area="" asp-controller="shift" asp-action="index">View Shifts</a>
-                            <a class="dropdown-item text-dark" asp-area="" asp-controller="shift" asp-action="unstaffed">View Unstaffed Shifts</a>
+                            <a class="dropdown-item text-dark" asp-area="" asp-controller="shift" asp-action="pastshifts">View Past Shifts</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="dropdown-item text-dark" asp-area="" asp-controller="shift" asp-action="unstaffed">View Unstaffed Shifts</a>
+                            }
+
                         </div>
                     </li>
                     <li class="nav-item dropdown">

@@ -123,3 +123,4 @@ C:\Users\Tyler\source\repos\TEServerTest\bin\Release\netcoreapp3.0\System.Diagno
 C:\Users\Tyler\source\repos\TEServerTest\bin\Release\netcoreapp3.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Tyler\source\repos\TEServerTest\obj\Release\netcoreapp3.0\Razor\Views\Shift\Edit.cshtml.g.cs
 C:\Users\Tyler\source\repos\TEServerTest\obj\Release\netcoreapp3.0\Razor\Views\Shift\Unstaffed.cshtml.g.cs
+C:\Users\Tyler\source\repos\TEServerTest\obj\Release\netcoreapp3.0\Razor\Views\Shift\PastShifts.cshtml.g.cs

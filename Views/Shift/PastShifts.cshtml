@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text-center">Schedule</h1>
+<h1 class="text-center">Past Shifts</h1>
 @if (Model.Any())
 {
     <div class="table-responsive">
@@ -37,12 +37,12 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 
     <div class="row justify-content-center">
-        <a asp-action="index"
+        <a asp-action="pastshifts"
            asp-route-pageNumber="@(Model.PageIndex - 1)"
            class="btn btn-primary @prevDisabled m-1">
             Previous
         </a>
-        <a asp-action="index"
+        <a asp-action="pastshifts"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
            class="btn btn-primary @nextDisabled m-1">
             Next
@@ -51,10 +51,10 @@
 }
 else
 {
-    <p class="text-center">No Shifts Presently Scheduled</p>
+    <p class="text-center">No Shifts Yet</p>
 }
 
-<p><a asp-action="pastshifts">View Past Shifts</a></p>
+<p><a asp-action="index">View Future Shifts</a></p>
 
 @if (User.IsInRole("Admin"))
 {

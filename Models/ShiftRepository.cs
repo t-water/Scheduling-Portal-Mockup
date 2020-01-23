@@ -43,9 +43,21 @@ namespace TEServerTest.Models
             return shift;
         }
 
-        public IEnumerable<Shift> GetShiftsAsync()
+        public IQueryable<Shift> GetShiftsAsync()
         {
             var shifts = context.Shifts.OrderBy(x => x.Start).Include(v => v.Venue).AsNoTracking();
+            return shifts;
+        }
+
+        public IQueryable<Shift> GetFutureShifts()
+        {
+            var shifts = context.Shifts.Where(x => x.Start >= DateTime.Today).OrderBy(x => x.Start).Include(v => v.Venue).AsNoTracking();
+            return shifts;
+        }
+
+        public IQueryable<Shift> GetPastShifts()
+        {
+            var shifts = context.Shifts.Where(x => x.End < DateTime.Now).OrderBy(x => x.Start).Include(v => v.Venue).AsNoTracking();
             return shifts;
         }
 
