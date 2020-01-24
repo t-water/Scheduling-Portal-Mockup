@@ -22,14 +22,12 @@ namespace TEServerTest.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
-            /*            var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await userManager.GetUserAsync(HttpContext.User);
 
-                        if (user.Id != id)
-                        {
-                            return NotFound();
-                        }*/
-
-            var user = await userManager.FindByIdAsync(id);
+            if (user.Id != id)
+            {
+                return Forbid();
+            }
 
             if(user == null)
             {
@@ -55,7 +53,12 @@ namespace TEServerTest.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            if (user.Id != id)
+            {
+                return Forbid();
+            }
 
             if (user == null)
             {
@@ -85,6 +88,11 @@ namespace TEServerTest.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
 
+            if (user.Id != id)
+            {
+                return Forbid();
+            }
+
             if (user == null)
             {
                 return NotFound();
@@ -104,6 +112,11 @@ namespace TEServerTest.Controllers
         public async Task<IActionResult> Edit(List<Availability> model, string id)
         {
             var user = await userManager.FindByIdAsync(id);
+
+            if (user.Id != id)
+            {
+                return Forbid();
+            }
 
             if (user == null)
             {

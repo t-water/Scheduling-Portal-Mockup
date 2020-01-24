@@ -36,7 +36,7 @@ namespace TEServerTest.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -65,7 +65,7 @@ namespace TEServerTest.Controllers
                 }
             }
             return View(model);
-        }
+        }*/
 
         [HttpGet]
         [AllowAnonymous]
@@ -123,6 +123,16 @@ namespace TEServerTest.Controllers
                 Roles = userRoles
             };
 
+            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
+            if (loggedInUser.Id != user.Id)
+            {
+                ViewBag.OwnsAccount = false;
+            }
+            else
+            {
+                ViewBag.OwnsAccount = true;
+            }
+
             return View(editProfileViewModel);
         }
 
@@ -135,9 +145,14 @@ namespace TEServerTest.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.FindByIdAsync(model.ID);
+            var user = await userManager.GetUserAsync(HttpContext.User);
 
-            if(user == null)
+            if (user.Id != id)
+            {
+                return Forbid();
+            }
+
+            if (user == null)
             {
                 return NotFound();
             }
@@ -179,6 +194,7 @@ namespace TEServerTest.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ManageRoles(string id)
         {
@@ -218,6 +234,7 @@ namespace TEServerTest.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ManageRoles(List<ManageRolesViewModel> model, string id)
