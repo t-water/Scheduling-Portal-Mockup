@@ -23,7 +23,7 @@
                 @foreach(var m in Model)
                 {
                     <tr>
-                        <td>@m.Name</td>
+                        <td><a asp-action="details" asp-route-id="@m.ID">@m.Name</a></td>
                         <td>@m.Start</td>
                         <td>@m.End</td>
                         <td>@m.Venue.Name</td>

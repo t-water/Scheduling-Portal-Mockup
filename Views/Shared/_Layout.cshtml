@@ -38,7 +38,10 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item text-dark" asp-area="" asp-controller="shiftswap" asp-action="availableshifts">View Available Shifts</a>
                             <a class="dropdown-item text-dark" asp-area="" asp-controller="shiftswap" asp-action="pendingRequests">View My Pending Requests</a>
-                            <a class="dropdown-item text-dark" asp-area="" asp-controller="shiftswap" asp-action="approveRequests">Approve Requests</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="dropdown-item text-dark" asp-area="" asp-controller="shiftswap" asp-action="approveRequests">Approve Requests</a>
+                            }
                         </div>
                     </li>
                     <li class="nav-item">
@@ -51,7 +54,10 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item text-dark" asp-area="" asp-controller="timeoff" asp-action="index">Make a Request</a>
                             <a class="dropdown-item text-dark" asp-area="" asp-controller="timeoff" asp-action="myrequests">View My Requests</a>
-                            <a class="dropdown-item text-dark" asp-area="" asp-controller="timeoff" asp-action="approverequests">Approve Pending Requests</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="dropdown-item text-dark" asp-area="" asp-controller="timeoff" asp-action="approverequests">Approve Pending Requests</a>
+                            }
                         </div>
                     </li>
                     @if (User.IsInRole("Admin"))

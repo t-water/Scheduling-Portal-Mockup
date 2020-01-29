@@ -12,37 +12,43 @@
             <thead>
                 <tr>
                     <th scope="col">Start Date</th>
-                    <th scope="col">Number of Days</th>
+                    <th scope="col">End Date</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Details</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th scope="col">Details</th>
+                    }
                 </tr>
             </thead>
             <tbody>
                 @foreach(var request in Model)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(modelitem => request.Start)</td>
-                        <td>@Html.DisplayFor(modelitem => request.End)</td>
-                        <td>
-                            @{
-                                string buttonStatus = "";
-                                if (request.RequestStatus == TimeOffStatus.Approved)
-                                {
-                                    buttonStatus = "btn-success";
-                                }
-                                else if (request.RequestStatus == TimeOffStatus.Pending)
-                                {
-                                    buttonStatus = "btn-warning";
-                                }
-                                else if (request.RequestStatus == TimeOffStatus.Denied)
-                                {
-                                    buttonStatus = "btn-danger";
-                                }
-                                <button class="btn @buttonStatus p-0">@Html.DisplayFor(modelitem => request.RequestStatus)</button>
+                <tr>
+                    <td>@Html.DisplayFor(modelitem => request.Start)</td>
+                    <td>@Html.DisplayFor(modelitem => request.End)</td>
+                    <td>
+                        @{
+                            string buttonStatus = "";
+                            if (request.RequestStatus == TimeOffStatus.Approved)
+                            {
+                                buttonStatus = "btn-success";
                             }
-                        </td>
+                            else if (request.RequestStatus == TimeOffStatus.Pending)
+                            {
+                                buttonStatus = "btn-warning";
+                            }
+                            else if (request.RequestStatus == TimeOffStatus.Denied)
+                            {
+                                buttonStatus = "btn-danger";
+                            }
+                            <button class="btn @buttonStatus p-0">@Html.DisplayFor(modelitem => request.RequestStatus)</button>
+                        }
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
                         <td><a asp-action="details" asp-route-id="@request.TimeOffID">Details</a></td>
-                    </tr>
+                    }
+                </tr>
                 }
             </tbody>
         </table>
